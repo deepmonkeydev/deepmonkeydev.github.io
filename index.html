@@ -62,55 +62,157 @@
 				<a href="#contact" class="button style2 down anchored">Next</a>
 			</section>
 
-<!-- Contact -->
+<!-- Contact2 -->
 <section id="contact" class="main style3 secondary">
     <div class="content">
         <header>
+			<head>
+				<style>
+					.chat-container {
+						width: 300px;
+						height: 400px;
+						border: 1px solid #ccc;
+						border-radius: 8px;
+						display: flex;
+						flex-direction: column;
+						font-family: Arial, sans-serif;
+					}
+					
+					.chat-messages {
+						flex: 1;
+						overflow-y: auto;
+						padding: 15px;
+						background: #f5f5f5;
+					}
+					
+					.message {
+						margin: 8px 0;
+						padding: 8px 12px;
+						border-radius: 15px;
+						max-width: 80%;
+						word-wrap: break-word;
+					}
+					
+					.user-message {
+						background: #007bff;
+						color: white;
+						margin-left: auto;
+					}
+					
+					.bot-message {
+						background: white;
+						color: black;
+						margin-right: auto;
+					}
+					
+					.input-area {
+						display: flex;
+						padding: 15px;
+						background: white;
+						border-top: 1px solid #ccc;
+					}
+					
+					#user-input {
+						flex: 1;
+						padding: 8px;
+						border: 1px solid #ccc;
+						border-radius: 4px;
+						margin-right: 8px;
+					}
+					
+					button {
+						padding: 8px 15px;
+						background: #007bff;
+						color: white;
+						border: none;
+						border-radius: 4px;
+						cursor: pointer;
+					}
+					
+					button:hover {
+						background: #0056b3;
+					}
+				</style>
+			</head>
             <h2>Feed the Monkey</h2>
             <p>Share your burning questions or toss a virtual banana our way.</p>
         </header>
-        <div class="box">
-            <form id="contactForm" onsubmit="return handleSubmit(event)">
-                <div class="fields">
-                    <div class="field half"><input type="text" name="name" placeholder="Name" required /></div>
-                    <div class="field half"><input type="email" name="email" placeholder="Email" required /></div>
-                    <div class="field"><textarea name="message" placeholder="Message" rows="6" required></textarea></div>
-                </div>
-                <ul class="actions special">
-                    <li><input type="submit" value="Send to the Monkey" /></li>
-                </ul>
-            </form>
+        <div class="chat-container">
+			<div id="chat-messages" class="chat-messages">
+				<div class="message bot-message">Hello! How can I help you today?</div>
+			</div>
+			<div class="input-area">
+				<input type="text" id="user-input" placeholder="Type your message...">
+				<button onclick="sendMessage()">Send</button>
+			</div>
         </div>
     </div>
 </section>
 
 <script>
-async function handleSubmit(event) {
-    event.preventDefault();
-    
-    // Replace this URL with your Google Apps Script Web App URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwXzj_oG6pLvfq4lVPCjFzyeO9R7Vdq-ZzQ0WdhUJ8cuu_lw-Y8pBrz8WKJ_ND6B80c/execSCRIPT_URL';
-    
-    try {
-        const formData = new FormData(event.target);
-        const response = await fetch(scriptURL, {
-            method: 'POST',
-            body: formData
-        });
-        
-        if (response.ok) {
-            alert('Thank you! Your message has been sent successfully!');
-            event.target.reset();
-        } else {
-            throw new Error('Something went wrong');
-        }
-    } catch (error) {
-        alert('Error! Could not submit form');
-        console.error('Error:', error);
-    }
-    
-    return false;
-}
+	const responses = {
+		'hello': 'Hi there! How are you?',
+		'how are you': "I'm doing well, thank you for asking!",
+		'what is your name': 'My name is ChatBot!',
+		'bye': 'Goodbye! Have a great day!',
+		'help': 'I can help answer basic questions. Try saying hello!',
+		'default': "I'm not sure how to respond to that. Could you try rephrasing?"
+		'house': "Call Andrew"
+	};
+
+	const similarityCheck = (str1, str2) => {
+		const s1 = str1.toLowerCase();
+		const s2 = str2.toLowerCase();
+		return s1.includes(s2) || s2.includes(s1);
+	};
+
+	function addMessage(message, isUser = false) {
+		const chatMessages = document.getElementById('chat-messages');
+		const messageDiv = document.createElement('div');
+		messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+		messageDiv.textContent = message;
+		chatMessages.appendChild(messageDiv);
+		chatMessages.scrollTop = chatMessages.scrollHeight;
+	}
+
+	function getBotResponse(userMessage) {
+		const message = userMessage.toLowerCase();
+		
+		// Check for matching responses
+		for (let key in responses) {
+			if (similarityCheck(message, key)) {
+				return responses[key];
+			}
+		}
+		
+		return responses.default;
+	}
+
+	function sendMessage() {
+		const inputField = document.getElementById('user-input');
+		const userMessage = inputField.value.trim();
+		
+		if (userMessage) {
+			// Add user message
+			addMessage(userMessage, true);
+			
+			// Simulate bot "typing" delay
+			setTimeout(() => {
+				const botResponse = getBotResponse(userMessage);
+				addMessage(botResponse);
+			}, 500);
+			
+			// Clear input field
+			inputField.value = '';
+		}
+	}
+
+	// Allow Enter key to send message
+	document.getElementById('user-input').addEventListener('keypress', (e) => {
+		if (e.key === 'Enter') {
+			sendMessage();
+		}
+	});
 </script>
 
 		<!-- Footer 
