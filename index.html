@@ -1,447 +1,273 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Deep Monkey - The AI Oracle</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepMonkey - AI Meets Primate Intelligence</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #4CAF50;
+            --dark-bg: #1a1a1a;
+            --lighter-dark: #2a2a2a;
+            --text-light: #ffffff;
+            --text-muted: #888;
+        }
 
-		<!-- Header -->
-			<header id="header">
-				<h1>Deep Monkey</h1>
-				<nav>
-					<ul>
-						<li><a href="#intro">Home</a></li>
-						<li><a href="#one">Ask Monkey</a></li>
-						<li><a href="#two">About</a></li>
-						<li><a href="#contact">Connect</a></li>
-					</ul>
-				</nav>
-			</header>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<!-- Intro -->
-			<section id="intro" class="main style1 dark fullscreen">
-				<div class="content">
-					<header>
-						<h2>DEEP MONKEY</h2>
-					</header>
-					<p>Where AI meets Primate Intelligence<br />
-					The Digital Oracle You Never Knew You Needed</p>
-					<footer>
-						<a href="#one" class="button style2 down">More</a>
-					</footer>
-				</div>
-			</section>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--dark-bg);
+        }
 
-		<!-- One -->
-			<section id="one" class="main style2 right dark fullscreen">
-				<div class="content box style2">
-					<header>
-						<h2>Ask Deep Monkey</h2>
-					</header>
-					<p>Type your question and receive wisdom from beyond the digital veil. 
-					Part digital shaman, part silicon soothsayer, our primate prophet combines ancient wisdom with 
-					cutting-edge artificial intelligence to deliver insights that are as profound as they are unpredictable.</p>
-                    <!-- Chat interface will go here -->
-				</div>
-				<a href="#two" class="button style2 down anchored">Next</a>
-			</section>
+        /* Header */
+        .header {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--dark-bg);
+            border-bottom: 1px solid var(--lighter-dark);
+        }
 
-		<!-- Two -->
-			<section id="two" class="main style2 left dark fullscreen">
-				<div class="content box style2">
-					<header>
-						<h2>Primate Wisdom</h2>
-					</header>
-					<p>Warning: Side effects may include enlightenment, confusion, and occasional bouts of existential banana cravings. 
-                    For deeper insights, consider our premium banana subscription.</p>
-				</div>
-				<a href="#contact" class="button style2 down anchored">Next</a>
-			</section>
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-<!-- Contact2 -->
-<section id="contact" class="main style3 secondary">
-    <div class="content">
-        <header>
-			<head>
-				<style>
-					.chat-container {
-						width: 300px;
-						height: 400px;
-						border: 1px solid #ccc;
-						border-radius: 8px;
-						display: flex;
-						flex-direction: column;
-						font-family: Arial, sans-serif;
-					}
-					
-					.chat-messages {
-						flex: 1;
-						overflow-y: auto;
-						padding: 15px;
-						background: #f5f5f5;
-					}
-					
-					.message {
-						margin: 8px 0;
-						padding: 8px 12px;
-						border-radius: 15px;
-						max-width: 80%;
-						word-wrap: break-word;
-					}
-					
-					.user-message {
-						background: #007bff;
-						color: white;
-						margin-left: auto;
-					}
-					
-					.bot-message {
-						background: white;
-						color: black;
-						margin-right: auto;
-					}
-					
-					.input-area {
-						display: flex;
-						padding: 15px;
-						background: white;
-						border-top: 1px solid #ccc;
-					}
-					
-					#user-input {
-						flex: 1;
-						padding: 8px;
-						border: 1px solid #ccc;
-						border-radius: 4px;
-						margin-right: 8px;
-					}
-					
-					button {
-						padding: 8px 15px;
-						background: #007bff;
-						color: white;
-						border: none;
-						border-radius: 4px;
-						cursor: pointer;
-					}
-					
-					button:hover {
-						background: #0056b3;
-					}
-				</style>
-			</head>
-            <h2>Feed the Monkey</h2>
-            <p>Share your burning questions or toss a virtual banana our way.</p>
-        </header>
-        <div class="chat-container">
-			<div id="chat-messages" class="chat-messages">
-				<div class="message bot-message">Enter your Question or one word response...</div>
-			</div>
-			<div class="input-area">
-				<input type="text" id="user-input" placeholder="Type your message...">
-				<button onclick="sendMessage()">Send</button>
-			</div>
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, var(--dark-bg), var(--lighter-dark));
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .button {
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .button-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            background-color: var(--lighter-dark);
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: var(--dark-bg);
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-bg);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--lighter-dark);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo-icon"></div>
+            <div class="logo-text">DEEP MONKEY</div>
         </div>
-    </div>
-</section>
+    </header>
 
-<script>
-	const responses = {
-		'hello': 'Hi there! How are you?',
-		'good': "thats boring try swearing!",
-		'how are you': "I'm doing well, thank you for asking!",
-		'what is your name': 'My name is DeepChok Monkey!',
-		'bye': 'Goodbye! Have a great day!',
-		'sage': 'Do you know the master?',
-		'help': 'I can help answer basic questions. Try saying hello',
-		'default': "I'm not sure how to respond to that. Could you try rephrasing?",
-		'house': "Call Andrew",
-		"Try tomorrow": "Wait for the next sunrise in the jungle",
-    "Not a chance": "Not even with infinite bananas",
-    "Ask your mother": "Consult the matriarch orangutan",
-    "Keep trying": "Keep swinging from vine to vine",
-    "Don't give up": "A monkey never lets go of their branch",
-    "Look to the east": "Face the rising sun in the canopy",
-    "Water it more": "Add more jungle dew",
-    "Time will tell": "The jungle reveals all in time",
-    "Trust yourself": "Trust your inner primate",
-    "Be patient": "Wait like a sloth",
-    "Sleep on it": "Rest in the highest branches",
-    "Ask your friends": "Consult the monkey troop",
-    "Follow your heart": "Follow your banana-loving heart",
-    "Think bigger": "Think like a gorilla",
-    "Start small": "Start with a baby monkey step",
-    "Keep it simple": "Simple as peeling a banana",
-    "Try harder": "Climb higher in the tree",
-    "Look behind you": "Check your tail",
-    "Ask nicely": "Hoot politely",
-    "Be kind": "Share your bananas",
-    "Stay focused": "Keep your eyes on the coconut",
-    "Take a break": "Rest on a sturdy branch",
-    "Keep moving": "Keep swinging forward",
-    "Stay calm": "Be zen like bamboo",
-    "Be yourself": "Embrace your inner monkey",
-    "Think twice": "Consider both trees",
-    "Not yet": "The banana isn't ripe",
-    "Almost there": "Almost at the treetop",
-    "Keep going": "Continue through the canopy",
-    "Try again later": "Swing by later",
-    "Be careful": "Watch your step in the trees",
-    "Take your time": "No need to rush through the jungle",
-    "Stay strong": "Grip tight like a silverback",
-    "Have faith": "Trust the jungle wisdom",
-    "Be brave": "Face the leopard",
-    "Stay cool": "Keep cool like morning dew",
-    "Think positive": "Think like a happy chimp",
-    "Keep waiting": "Hang in there",
-    "Look closer": "Examine the banana closely",
-    "Stay happy": "Keep that monkey smile",
-    "Be prepared": "Always have a backup banana",
-    "Keep practicing": "Practice your vine swinging",
-    "Stay alert": "Keep your eyes peeled like a banana",
-    "Be realistic": "Not every tree can be climbed",
-    "Keep learning": "Learn from the elder apes",
-    "Stay healthy": "Eat your jungle greens",
-    "Be wise": "Channel the ancient monkey sages",
-    "Keep dreaming": "Dream of endless banana trees",
-    "Stay positive": "Keep that gibbon groove",
-    "Be creative": "Innovate like tool-using chimps",
-    "Keep growing": "Grow tall like a jungle tree",
-    "Stay true": "True as a monkey's grip",
-    "Be gentle": "Gentle like grooming a friend",
-    "Keep hoping": "Hope springs eternal in the jungle",
-    "Stay balanced": "Balance like a tightrope monkey",
-    "Be patient": "Patient as a monkey fishing for termites",
-    "Keep believing": "Believe in the power of the primate",
-    "Stay focused": "Focus like a banana hunter",
-    "Be strong": "Strong like a mountain gorilla",
-    "Keep climbing": "Climb to new heights",
-    "Stay sharp": "Sharp as a monkey's wit",
-    "Be ready": "Ready like a monkey before dawn",
-    "Keep seeking": "Seek like searching for the golden banana",
-    "Stay peaceful": "Peaceful as morning in the canopy",
-    "Be mindful": "Mindful as a meditating macaque",
-    "Keep learning": "Learn from every branch",
-    "Stay curious": "Curious as a baby chimp",
-    "Be bold": "Bold as a chest-beating gorilla",
-    "Keep exploring": "Explore every corner of the jungle",
-    "Stay humble": "Humble as a grooming monkey",
-    "Be patient": "Patient as waiting for fruit to ripen",
-    "Keep watching": "Watch like a sentinel monkey",
-    "Stay active": "Active as a spider monkey",
-    "Be present": "Present as a monkey in meditation",
-    "Keep listening": "Listen to the jungle drums",
-    "Stay aware": "Aware as a monkey in the trees",
-    "Be careful": "Careful as crossing between branches",
-    "Keep smiling": "Smile like a happy orangutan",
-    "Stay focused": "Focused as a termite-fishing chimp",
-    "Be grateful": "Grateful for every banana",
-    "Keep moving": "Move like the morning mist",
-    "Stay determined": "Determined as a monkey reaching fruit",
-    "Be observant": "Observant as a wise old baboon",
-    "Keep steady": "Steady as a branch in still air",
-    "Stay balanced": "Balanced as a tightrope walking gibbon",
-    "Be thoughtful": "Thoughtful as a tool-making chimp",
-    "Keep calm": "Calm as a sleeping sloth",
-    "Stay strong": "Strong as a silverback's resolve",
-    "Be persistent": "Persistent as rain in the rainforest",
-    "Keep searching": "Search like seeking hidden fruit",
-    "Stay focused": "Focused as a hunting monkey",
-    "Be innovative": "Innovative as a stick-wielding ape",
-    "Keep breathing": "Breathe deep like the jungle itself",
-    "Stay centered": "Centered as the heart of the jungle",
-    "Be alert": "Alert as a sentinel in the trees",
-    "Keep learning": "Learn like a young apprentice monkey",
-    "Stay vigilant": "Vigilant as a mother with her infant",
-    "Be adaptable": "Adaptable as a jungle survivor",
-    "Keep evolving": "Evolve like our ancestors",
-    "Stay wise": "Wise as the oldest orangutan",
-    "Be peaceful": "Peaceful as dawn in the canopy",
-    "Keep swinging": "Swing through life's vines",
-    "Stay playful": "Playful as young monkeys in the trees",
-    "Be authentic": "Authentic as wild nature itself",
-    "Keep growing": "Grow like a mighty jungle tree",
-	"yes": "The ancient banana leaves say yes",
-    "no": "The jungle spirits say no",
-    "Depends on you": "As unpredictable as a monkey with a coconut",
-    "Not now": "The time is not ripe",
-    "Try again": "Ask again when the moon is full",
-    "Look deeper": "Meditate in the canopy and seek again",
-    "Wish for it": "Toss a banana to the wind",
-    "Ask again": "Consult the elder monkeys",
-    "Nine": "The sacred number of bananas",
-    "Forty-two": "The answer lies in 42 palm trees",
-    "Perhaps": "The wise orangutan is uncertain",
-    "Balance is the answer": "Balance like a monkey on a branch",
-    "Breath deeply and the answer will come to you": "Breathe the jungle air and know",
-    "Bananas": "BANANAS! DEFINITELY BANANAS!",
-    "Coconuts": "COCONUTS OF DESTINY!",
-    "Wait for the stars to align": "Wait for the jungle stars to align",
-    "Do it": "Swing into action!",
-    "Be optimistic": "The jungle provides",
-    "Uncover the hidden": "Peel back the banana of truth",
-    "Growth cannot be avoided": "Growth is like a climbing vine",
-    "Gravel": "Wisdom is found in gravel",
-    "Whang it": "Go ape!",
-    "Bolona": "Even monkeys slip sometimes",
-    "Try the wig shop": "Seek the temple of wigs",
-    "John Holmes": "The great silverback knows",
-    "Shave more often": "Groom more frequently",
-    "Try larger shoe size": "Your feet seek bigger branches",
-    "Super-size it": "Make it jungle-sized!",
-    "Pat, don't wipe": "Pat like a gentle gorilla",
-    "So good": "Monkey see, monkey do",
-    "Payday Loan Store": "The banana bank is open",
-    "Avoid revolving doors": "Avoid spinning tree trunks",
-    "Change your password": "Change your jungle call",
-    "Who's kidding who": "Who's monkeying around?",
-    "I take that personally": "This monkey takes offense!",
-    "Don't take it personally": "Let it slide off like rain",
-    "Just do your best": "Channel your inner chimp",
-    "Quit making assumptions": "Quit monkey business assumptions",
-    "Patti LaBell and the BlueBells": "Dance like a gibbon in moonlight",
-    "Listen to Leonard Skinner backwards": "Listen to the howler monkeys",
-    "Try a plastic tarp": "Try a leaf umbrella",
-    "Pina coladas": "Coconut cocktails",
-    "You know what you did": "The monkey remembers",
-    "Get it painted": "Paint it banana yellow",
-    "Learn Greek": "Learn monkey Greek",
-    "Learn Russian": "Learn gorilla Russian",
-    "Teach yourself juggling": "Master coconut juggling",
-    "The plot thickens": "The jungle thickens...",
-    "Spend less on your Gerbil": "Invest in premium bananas",
-    "Hula Hooping professionally": "Professional vine swinging",
-    "Lip Balm": "Banana leaf balm",
-    "Clean your trap": "Clean your treehouse",
-    "Lighten up a bit": "Swing lighter",
-    "More clouds on the horizon": "Storm clouds in the canopy",
-    "Sunny days ahead": "Sunny jungle days ahead",
-    "Keep on course": "Follow the vine path",
-    "Activate your subscription to the revolution": "Join the primate revolution",
-    "Try the obo": "Try the jungle drums",
-    "Small problem": "Small banana problem",
-    "Graphite": "Wisdom like graphite",
-    "Try more fiber": "More jungle fiber needed",
-    "Yes, 2hrs in the bathroom is too long": "Yes, too long hanging upside down",
-    "DNA": "Monkey DNA",
-    "Buy Nigerian Bonds": "Invest in jungle bonds",
-    "Try a vacation in Libya": "Vacation in the tallest trees",
-    "Use your fork with the other hand": "Use your other paw",
-    "Check your Drone's battery next time": "Check your vine's strength",
-    "Rewind": "Rewind the banana peel",
-    "Dystopian madness": "Jungle madness",
-    "Clara-Bell": "Wise Clara-Chimp",
-    "Charlie Pride": "Pride of the troop",
-    "The Kardassians": "The great ape family",
-    "Squid juice helps": "Banana juice helps",
-    "Goofy": "Go bananas!",
-    "Attitude": "Monkey attitude!",
-    "Visualize Whirled peas": "Visualize peeled bananas",
-    "Chew more before you swallow": "Chew your leaves thoroughly",
-    "Could be": "The monkeys have spoken",
-    "Maybe so": "Maybe so, says the gibbon",
-    "Quit sleeping in the dog bed": "Find your own branch",
-    "Confidence": "Jungle confidence!",
-    "Ding": "Ook ook!",
-    "Woot": "Eek eek!",
-    "Probably a hairball": "Probably a case of monkey business",
-    "Try AM radio": "Try jungle radio",
-    "Keep on truckin": "Keep on swinging",
-    "Montezuma's Revenge": "Monkey see, monkey don't",
-    "Diaper Rash": "Jungle rash",
-    "Buy Bitcoin": "Invest in coconuts",
-    "Not when someone's watching": "Not while the parrot watches",
-    "Joy": "Pure monkey joy!",
-    "Lice": "Watch for lice",
-    "The end": "The ancient monkey has spoken",
+    <section class="hero">
+        <h1>DEEP MONKEY</h1>
+        <p>Where AI Meets Primate Intelligence</p>
+        <div class="button-container">
+            <a href="chat.html" class="button button-primary">START NOW</a>
+            <a href="store.html" class="button button-secondary">GET DEEP MONKEY</a>
+        </div>
+    </section>
 
-	};
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-brain"></i>
+            <h3>Advanced AI</h3>
+            <p>Powered by cutting-edge artificial intelligence technology</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-bolt"></i>
+            <h3>Lightning Fast</h3>
+            <p>Get instant responses and real-time processing</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-lock"></i>
+            <h3>Secure & Private</h3>
+            <p>Your data is protected with enterprise-grade security</p>
+        </div>
+    </section>
 
-	const similarityCheck = (str1, str2) => {
-		const s1 = str1.toLowerCase();
-		const s2 = str2.toLowerCase();
-		return s1.includes(s2) || s2.includes(s1);
-	};
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <a href="https://x.com/DeepMonkeychat"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/deepmonkeydev"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/deepmonkeydev"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61572507521822"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@DeepMonkey-i9e"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
 
-	function addMessage(message, isUser = false) {
-		const chatMessages = document.getElementById('chat-messages');
-		const messageDiv = document.createElement('div');
-		messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
-		messageDiv.textContent = message;
-		chatMessages.appendChild(messageDiv);
-		chatMessages.scrollTop = chatMessages.scrollHeight;
-	}
-
-	function getBotResponse(userMessage) {
-		const message = userMessage.toLowerCase();
-		
-		// Check for matching responses
-		for (let key in responses) {
-			if (similarityCheck(message, key)) {
-				return responses[key];
-			}
-		}
-		
-		return responses.default;
-	}
-
-	function sendMessage() {
-		const inputField = document.getElementById('user-input');
-		const userMessage = inputField.value.trim();
-		
-		if (userMessage) {
-			// Add user message
-			addMessage(userMessage, true);
-			
-			// Simulate bot "typing" delay
-			setTimeout(() => {
-				const botResponse = getBotResponse(userMessage);
-				addMessage(botResponse);
-			}, 500);
-			
-			// Clear input field
-			inputField.value = '';
-		}
-	}
-
-	// Allow Enter key to send message
-	document.getElementById('user-input').addEventListener('keypress', (e) => {
-		if (e.key === 'Enter') {
-			sendMessage();
-		}
-	});
-</script>
-
-		<!-- Footer 
-		 						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li> -->
-			<footer id="footer">
-				<!-- Icons -->
-					<ul class="icons">
-						<li><a href="https://x.com/DeepMonkeychat" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-
-					</ul>
-
-				<!-- Menu -->
-					<ul class="menu">
-						<li>&copy; Deep Monkey 2025</li>
-						<li>Warning: No bananas were harmed in the creation of this AI</li>
-					</ul>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                 
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                  
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>
