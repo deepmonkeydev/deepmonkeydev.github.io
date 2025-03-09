@@ -3,271 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepMonkey - AI Meets Primate Intelligence</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #4CAF50;
-            --dark-bg: #1a1a1a;
-            --lighter-dark: #2a2a2a;
-            --text-light: #ffffff;
-            --text-muted: #888;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--text-light);
-            background-color: var(--dark-bg);
-        }
-
-        /* Header */
-        .header {
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: var(--dark-bg);
-            border-bottom: 1px solid var(--lighter-dark);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(45deg, var(--dark-bg), var(--lighter-dark));
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        /* Buttons */
-        .button-container {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        .button {
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-        }
-
-        .button-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .button-secondary {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            background-color: var(--lighter-dark);
-        }
-
-        .feature-card {
-            padding: 2rem;
-            border-radius: 1rem;
-            background-color: var(--dark-bg);
-            text-align: center;
-        }
-
-        .feature-card i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--dark-bg);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid var(--lighter-dark);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-
-        .footer-section h3 {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-            color: var(--primary-color);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-icons a {
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            transition: color 0.2s;
-        }
-
-        .social-icons a:hover {
-            color: var(--primary-color);
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Terminal Theme Demo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo-container">
-            <div class="logo-icon"></div>
-            <div class="logo-text">DEEP MONKEY</div>
+    <div class="terminal">
+        <div class="boot-screen" id="boot-screen">
+            <p id="boot-line-1" style="display: none;">> Booting deepMonkey OS...</p>
+            <p id="boot-line-2" style="display: none;">> Loading kernel...</p>
+            <p id="boot-line-3" style="display: none;">> Initializing drivers...</p>
+            <p id="boot-line-4" style="display: none;">> System time: <span id="boot-time"></span></p>
+            <p id="boot-line-5" style="display: none;">> System check complete...</p>
+            <p id="boot-line-6" style="display: none;">> Loading DeepMonkey.Chat...</p>
+            <p id="boot-line-7" style="display: none;" class="error">SYSTEM: HALT</p>
         </div>
-    </header>
 
-    <section class="hero">
-        <h1>DEEP MONKEY</h1>
-        <p>Where AI Meets Primate Intelligence</p>
-        <div class="button-container">
-            <a href="chat.html" class="button button-primary">START NOW</a>
-            <a href="store.html" class="button button-secondary">GET DEEP MONKEY</a>
-        </div>
-    </section>
+        <div class="main-interface" id="main-interface" style="display: none;">
+            <button class="hamburger" aria-label="Open menu">≡</button>
+            <div class="menu-bar" id="menu-bar">
+                <ul>
+                    <li><a href="#" data-content="main">FILE</a></li>
+                    <li><a href="#" data-content="edit">EDIT</a></li>
+                    <li><a href="#" data-content="run">RUN</a></li>
+                    <li><a href="#" data-content="contact">HELP</a></li>
+                </ul>
+            </div>
 
-    <section class="features">
-        <div class="feature-card">
-            <i class="fas fa-brain"></i>
-            <h3>Advanced AI</h3>
-            <p>Powered by cutting-edge artificial intelligence technology</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-bolt"></i>
-            <h3>Lightning Fast</h3>
-            <p>Get instant responses and real-time processing</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-lock"></i>
-            <h3>Secure & Private</h3>
-            <p>Your data is protected with enterprise-grade security</p>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Connect</h3>
-                <div class="social-icons">
-                    <a href="https://x.com/DeepMonkeychat"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/deepmonkeydev"><i class="fab fa-github"></i></a>
-                    <a href="https://www.instagram.com/deepmonkeydev"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61572507521822"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.youtube.com/@DeepMonkey-i9e"><i class="fab fa-youtube"></i></a>
+            <div class="screen">
+                <div class="content" id="main-content" style="display: none;">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="content" id="edit-content" style="display: none;">
+                    <p>> EDIT MODE</p>
+                    <p>EDIT COMMANDS COMING SOON.</p>
+                </div>
+                <div class="content" id="run-content" style="display: none;">
+                    <p>> RUN MODE</p>
+                    <p>RUN COMMANDS COMING SOON.</p>
+                </div>
+                <div class="content" id="contact-content" style="display: none;">
+                    <p>> CONTACT US</p>
+                    <p>TYPE 'EMAIL' TO REACH OUT.</p>
+                </div>
+                <div class="content" id="credit-warning" style="display: none;">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <p style="color: #FF0000;">SYSTEM: HALT</p>
+                    <p style="color: #FF0000;">PLEASE LOAD MORE CREDITS</p>
+                    <p style="color: #FF0000;">BTC WALLET: 34xZB66ai2Zi9w5tqdQ6mmktQCW9hbXGej
+                    </p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul>
 
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Resources</h3>
-                <ul>
-                 
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul>
-                  
-                </ul>
-            </div>
+            <div class="wavy-line"></div>
+            <hr class="divider">
+
+            <footer class="bottom-row">
+                <div class="prompt">
+                    <span>(deepMonkey) :</span>
+                    <input type="text" maxlength="12" class="input-prompt" placeholder="_">
+                </div>
+                <div class="time-date" id="time-date">
+                    <div id="date"></div>
+                    <div id="time"></div>
+                </div>
+            </footer>
         </div>
-    </footer>
+    </div>
+
+    <script>
+        // Boot sequence
+        const bootScreen = document.getElementById('boot-screen');
+        const mainInterface = document.getElementById('main-interface');
+        const bootLines = [
+            document.getElementById('boot-line-1'),
+            document.getElementById('boot-line-2'),
+            document.getElementById('boot-line-3'),
+            document.getElementById('boot-line-4'),
+            document.getElementById('boot-line-5'),
+            document.getElementById('boot-line-6'),
+            document.getElementById('boot-line-7')
+        ];
+        const bootTime = document.getElementById('boot-time');
+
+        function updateBootTime() {
+            const now = new Date();
+            bootTime.textContent = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${now.toLocaleTimeString('en-US', { hour12: false })}`;
+        }
+
+        let delay = 0;
+        bootLines.forEach((line, index) => {
+            setTimeout(() => {
+                line.style.display = 'block';
+                if (index === 3) updateBootTime(); // Update time on "System time" line (now line 4)
+            }, delay);
+            delay += 600; // 0.6 seconds between each line
+        });
+
+        // Fade out boot screen and show main interface with credit warning
+        setTimeout(() => {
+            bootScreen.style.opacity = '0';
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+                mainInterface.style.display = 'block';
+                mainInterface.style.opacity = '1';
+                // Show the main content by default
+                document.getElementById('main-content').style.display = 'block';
+                // Show the credit warning after a short delay
+                setTimeout(() => {
+                    document.getElementById('credit-warning').style.display = 'block';
+                }, 1000); // Delay 1 second to allow main content to appear first
+            }, 500); // Fade transition duration
+        }, delay + 1200); // After last line + 1.2s to emphasize error
+
+        // Live time and date update for main interface
+        function updateTimeDate() {
+            const now = new Date();
+            document.getElementById('date').textContent = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
+            document.getElementById('time').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+        }
+        setInterval(updateTimeDate, 1000);
+        updateTimeDate();
+
+        // Menu bar functionality
+        const hamburger = document.querySelector('.hamburger');
+        const menuBar = document.querySelector('.menu-bar');
+        const links = document.querySelectorAll('.menu-bar a');
+        const contents = document.querySelectorAll('.content');
+        const inputPrompt = document.querySelector('.input-prompt');
+
+        hamburger.addEventListener('click', () => {
+            menuBar.classList.toggle('active');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const contentId = link.getAttribute('data-content') + '-content';
+                contents.forEach(content => content.style.display = 'none');
+                document.getElementById(contentId).style.display = 'block';
+                // Hide credit warning when navigating away
+                if (contentId !== 'credit-warning') {
+                    document.getElementById('credit-warning').style.display = 'none';
+                }
+                menuBar.classList.remove('active');
+                inputPrompt.value = '';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !menuBar.contains(e.target)) {
+                menuBar.classList.remove('active');
+            }
+        });
+
+        // Input functionality
+        inputPrompt.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = inputPrompt.value.toUpperCase();
+                if (command === 'EMAIL') {
+                    alert('Email functionality coming soon!');
+                }
+                inputPrompt.value = '';
+            }
+        });
+
+        // Button interactivity
+        document.querySelectorAll('.content button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert(`You clicked: ${btn.textContent}`);
+            });
+        });
+    </script>
 </body>
 </html>
