@@ -15,7 +15,8 @@
             <p id="boot-line-4" style="display: none;">> System time: <span id="boot-time"></span></p>
             <p id="boot-line-5" style="display: none;">> System check complete...</p>
             <p id="boot-line-6" style="display: none;">> Loading DeepMonkey.Chat...</p>
-            <p id="boot-line-7" style="display: none;" class="error">SYSTEM: HALT</p>
+            <p id="boot-line-7" style="display: none;">> Loading Game.exe...</p>
+            <p id="boot-line-8" style="display: none;" class="error">SYSTEM: HALT</p>
         </div>
 
         <div class="main-interface" id="main-interface" style="display: none;">
@@ -47,18 +48,9 @@
                     <p>TYPE 'EMAIL' TO REACH OUT.</p>
                 </div>
                 <div class="content" id="credit-warning" style="display: none;">
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
                     <p style="color: #FF0000;">SYSTEM: HALT</p>
                     <p style="color: #FF0000;">PLEASE LOAD MORE CREDITS</p>
-                    <p style="color: #FF0000;">BTC WALLET: 34xZB66ai2Zi9w5tqdQ6mmktQCW9hbXGej
-                    </p>
+                    <p style="color: #FF0000;">BTC WALLET: 34xZB66ai2Zi9w5tqdQ6mmktQCW9hbXGej</p>
                 </div>
             </div>
 
@@ -89,7 +81,8 @@
             document.getElementById('boot-line-4'),
             document.getElementById('boot-line-5'),
             document.getElementById('boot-line-6'),
-            document.getElementById('boot-line-7')
+            document.getElementById('boot-line-7'),
+            document.getElementById('boot-line-8')
         ];
         const bootTime = document.getElementById('boot-time');
 
@@ -102,28 +95,25 @@
         bootLines.forEach((line, index) => {
             setTimeout(() => {
                 line.style.display = 'block';
-                if (index === 3) updateBootTime(); // Update time on "System time" line (now line 4)
+                if (index === 3) updateBootTime();
             }, delay);
-            delay += 600; // 0.6 seconds between each line
+            delay += 600;
         });
 
-        // Fade out boot screen and show main interface with credit warning
         setTimeout(() => {
             bootScreen.style.opacity = '0';
             setTimeout(() => {
                 bootScreen.style.display = 'none';
                 mainInterface.style.display = 'block';
                 mainInterface.style.opacity = '1';
-                // Show the main content by default
                 document.getElementById('main-content').style.display = 'block';
-                // Show the credit warning after a short delay
                 setTimeout(() => {
                     document.getElementById('credit-warning').style.display = 'block';
-                }, 1000); // Delay 1 second to allow main content to appear first
-            }, 500); // Fade transition duration
-        }, delay + 1200); // After last line + 1.2s to emphasize error
+                }, 1000);
+            }, 500);
+        }, delay + 1200);
 
-        // Live time and date update for main interface
+        // Live time and date update
         function updateTimeDate() {
             const now = new Date();
             document.getElementById('date').textContent = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
@@ -149,7 +139,6 @@
                 const contentId = link.getAttribute('data-content') + '-content';
                 contents.forEach(content => content.style.display = 'none');
                 document.getElementById(contentId).style.display = 'block';
-                // Hide credit warning when navigating away
                 if (contentId !== 'credit-warning') {
                     document.getElementById('credit-warning').style.display = 'none';
                 }
@@ -164,14 +153,18 @@
             }
         });
 
-        // Input functionality
+        // Input functionality with game.exe redirect
         inputPrompt.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                const command = inputPrompt.value.toUpperCase();
-                if (command === 'EMAIL') {
+                const command = inputPrompt.value.trim().toLowerCase(); // Case-insensitive input
+                if (command === 'game.exe') {
+                    window.location.href = 'game/game.html'; // Redirect to game.html
+                } else if (command === 'email') {
                     alert('Email functionality coming soon!');
+                } else {
+                    alert(`Unknown command: ${command}`); // Optional: feedback for unrecognized commands
                 }
-                inputPrompt.value = '';
+                inputPrompt.value = ''; // Clear input after command
             }
         });
 
