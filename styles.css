@@ -6,12 +6,13 @@
 }
 
 body {
-    background-color: #0A0A0A;
+    background-color: #0A0A0A; /* Default background for the entire page */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="%2300FF00"/></svg>') 8 8, auto;
+    transition: opacity 1s ease; /* For potential future fade effects */
 }
 
 /* Terminal container */
@@ -20,7 +21,7 @@ body {
     max-width: 900px;
     height: 80vh;
     max-height: 600px;
-    background-color: #000000;
+    background-color: #000000; /* Default background before image loads */
     border: 2px solid #00FF00;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
     font-family: 'Courier New', Courier, monospace;
@@ -29,6 +30,15 @@ body {
     position: relative;
     overflow: hidden;
     animation: flicker 0.1s infinite alternate;
+    transition: opacity 1s ease; /* Smooth transition for background fade */
+}
+
+/* Apply background image to terminal */
+.terminal.loaded {
+    background-image: url('background.jpg'); /* Ensure this path is correct */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-size: 640px 480px; /* Fixed size as requested */
 }
 
 /* CRT scanline effect */
@@ -163,6 +173,10 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
+}
+
+.content p {
+    margin: 10px 0; /* Add spacing between response lines */
 }
 
 /* Credit warning styling */
