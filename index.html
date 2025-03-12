@@ -18,32 +18,13 @@
         </div>
 
         <div class="main-interface" id="main-interface" style="display: none;">
-            <button class="hamburger" aria-label="Open menu">≡</button>
-            <div class="menu-bar" id="menu-bar">
-                <ul>
-                    <li><a href="#" data-content="main">FILE</a></li>
-                    <li><a href="#" data-content="run">RUN</a></li>
-                    <li><a href="#" data-content="contact">HELP</a></li>
-                </ul>
-            </div>
-
             <div class="screen">
-                <div class="content" id="main-content" style="display: none;">
+                <div class="content" id="main-content" style="display: block;">
                     <p></p>
-                    <p id="response"></p> <!-- New paragraph for response -->
+                    <p id="response"></p>
                     <p></p>
                 </div>
-                <div class="content" id="edit-content" style="display: none;">
-                   
-                </div>
-                <div class="content" id="run-content" style="display: none;">
-                   
-                </div>
-                <div class="content" id="contact-content" style="display: none;">
-
-                </div>
-                <div class="content" id="credit-warning" style="display: none;">
-                </div>
+                <div class="content" id="credit-warning" style="display: none;"></div>
             </div>
 
             <div class="wavy-line"></div>
@@ -54,382 +35,33 @@
                     <span>(deepMonkey) :</span>
                     <input type="text" maxlength="12" class="input-prompt" placeholder="_">
                 </div>
-                <div class="time-date" id="time-date">
-                    <div id="date"></div>
-                    <div id="time"></div>
+                <div class="time-date-container">
+                    <button class="guest-button" id="guest-button">Guest</button>
+                    <div class="time-date-wrapper">
+                        <div class="help-tooltip">
+                            <span style="color: #00FF00;">?</span>
+                            <span class="tooltip-text">deep monkey likes single words</span>
+                        </div>
+                        <div class="time-date" id="time-date">
+                            <div id="time"></div>
+                            <div id="date"></div>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </div>
+
+        <div class="login-prompt" id="login-prompt">
+            <h3>Login</h3>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <br>
+            <button id="login-submit">Login</button>
+            <button id="login-cancel">Cancel</button>
+        </div>
     </div>
 
-    <script>
-        // Boot sequence
-        const bootScreen = document.getElementById('boot-screen');
-        const mainInterface = document.getElementById('main-interface');
-        const bootLines = [
-            document.getElementById('boot-line-1'),
-            document.getElementById('boot-line-2'),
-            document.getElementById('boot-line-3'),
-            document.getElementById('boot-line-4'),
-            document.getElementById('boot-line-5'),
-            document.getElementById('boot-line-6')
-        ];
-        const bootTime = document.getElementById('boot-time');
-        const terminal = document.querySelector('.terminal'); // Reference to terminal div
-        const responseElement = document.getElementById('response'); // Reference to response paragraph
-
-        // Keyword to response mapping
-        const responses = {
-            "yes": "The ancient banana leaves say yes",
-            "no": "The river whispers no to the dawn",
-            "maybe": "Clouds drift in a maybe sky",
-            "always": "The mountain stands always firm",
-            "never": "Stars never fade in the void",
-            "sometimes": "Rain falls sometimes unasked",
-            "forever": "The wind sings forever free",
-            "once": "A spark flares once then dies",
-            "now": "The tide pulls now to shore",
-            "then": "Shadows stretch then retreat",
-            "here": "Roots grip here in silence",
-            "there": "Mist lingers there unseen",
-            "everywhere": "Echoes hum everywhere soft",
-            "nowhere": "Dust settles nowhere long",
-            "somewhere": "A path winds somewhere lost",
-            "today": "Sun burns today alive",
-            "tomorrow": "Hopes bloom tomorrow bright",
-            "yesterday": "Memories fade yesterday slow",
-            "soon": "Waves crash soon enough",
-            "later": "Frost creeps later still",
-            "near": "Whispers drift near unheard",
-            "far": "Horizons stretch far beyond",
-            "above": "Sky arches above all",
-            "below": "Earth sleeps below deep",
-            "beside": "Streams run beside quiet",
-            "inside": "Warmth glows inside soft",
-            "outside": "Cold bites outside sharp",
-            "around": "Vines twist around tight",
-            "through": "Light cuts through dark",
-            "across": "Bridges span across wide",
-            "up": "Peaks rise up bold",
-            "down": "Valleys sink down low",
-            "left": "Winds blow left unseen",
-            "right": "Rivers bend right swift",
-            "before": "Dawn waits before day",
-            "after": "Dusk settles after light",
-            "during": "Storms rage during night",
-            "because": "Roots grow because rain",
-            "although": "Leaves fall although green",
-            "unless": "Shadows stay unless sun",
-            "if": "Birds sing if skies clear",
-            "when": "Waves roar when moon pulls",
-            "where": "Fog hides where paths end",
-            "why": "Stars shine why not",
-            "how": "Wind howls how it knows",
-            "who": "Echoes ask who calls",
-            "what": "Earth hums what lives",
-            "which": "Branches sway which way",
-            "whose": "Tracks mark whose steps",
-            "whenever": "Rain taps whenever clouds",
-            "wherever": "Dust flies wherever wind",
-            "however": "Light fades however strong",
-            "whoever": "Footsteps trail whoever roams",
-            "whatever": "Leaves drift whatever falls",
-            "begin": "Sprouts begin to rise",
-            "end": "Twilight ends in dark",
-            "start": "Rivers start from springs",
-            "finish": "Paths finish at cliffs",
-            "continue": "Winds continue unbroken",
-            "stop": "Time stops in frost",
-            "pause": "Breath pauses in mist",
-            "break": "Branches break in storm",
-            "join": "Streams join to sea",
-            "separate": "Clouds separate in breeze",
-            "merge": "Shadows merge at dusk",
-            "divide": "Canyons divide the land",
-            "rise": "Sun rises in gold",
-            "fall": "Leaves fall in red",
-            "climb": "Vines climb to sky",
-            "descend": "Fog descends to earth",
-            "move": "Waves move with force",
-            "stay": "Rocks stay unmoved",
-            "shift": "Sands shift with tides",
-            "turn": "Seasons turn to frost",
-            "twist": "Roots twist through stone",
-            "bend": "Reeds bend in wind",
-            "straight": "Rivers run straight home",
-            "open": "Skies open to stars",
-            "close": "Petals close at night",
-            "lock": "Ice locks the stream",
-            "unlock": "Dawn unlocks the day",
-            "grow": "Trees grow to clouds",
-            "shrink": "Shadows shrink at noon",
-            "expand": "Horizons expand with light",
-            "fade": "Colors fade to gray",
-            "glow": "Moons glow in dark",
-            "dim": "Lanterns dim by dawn",
-            "shine": "Dew shines in sun",
-            "darken": "Woods darken at dusk",
-            "brighten": "Fields brighten with day",
-            "live": "Birds live in song",
-            "die": "Leaves die in fall",
-            "breathe": "Winds breathe through hills",
-            "silence": "Snow brings silence deep",
-            "speak": "Rivers speak in rush",
-            "listen": "Forests listen to night",
-            "hear": "Echoes hear themselves",
-            "see": "Eyes see through mist",
-            "hide": "Shadows hide in shade",
-            "reveal": "Sun reveals the peaks",
-            "seek": "Wolves seek in dark",
-            "find": "Roots find their way",
-            "lose": "Paths lose to time",
-            "keep": "Mountains keep their watch",
-            "give": "Trees give their shade",
-            "take": "Winds take the leaves",
-            "hold": "Earth holds the rain",
-            "release": "Sky releases the storm",
-            "push": "Waves push the shore",
-            "pull": "Moon pulls the sea",
-            "lift": "Wings lift to sky",
-            "drop": "Rain drops to earth",
-            "fly": "Birds fly with dawn",
-            "crawl": "Vines crawl up stone",
-            "run": "Rivers run to end",
-            "walk": "Shadows walk with dusk",
-            "stand": "Oaks stand through years",
-            "sit": "Rocks sit in peace",
-            "dance": "Leaves dance in breeze",
-            "sway": "Grasses sway with wind",
-            "shake": "Branches shake in gusts",
-            "tremble": "Earth trembles with force",
-            "flow": "Streams flow to sea",
-            "freeze": "Lakes freeze in cold",
-            "melt": "Ice melts to spring",
-            "burn": "Flames burn through night",
-            "cool": "Winds cool the plains",
-            "warm": "Sun warms the soil",
-            "dry": "Deserts dry to dust",
-            "wet": "Rain wets the fields",
-            "fill": "Rivers fill with storm",
-            "empty": "Skies empty of clouds",
-            "rush": "Winds rush through gaps",
-            "slow": "Time slows in frost",
-            "hurry": "Streams hurry to fall",
-            "wait": "Dawn waits for night",
-            "chase": "Wolves chase the moon",
-            "escape": "Birds escape the storm",
-            "catch": "Roots catch the rain",
-            "miss": "Arrows miss the wind",
-            "build": "Hills build with time",
-            "destroy": "Storms destroy with rage",
-            "create": "Stars create the night",
-            "mend": "Earth mends with green",
-            "tear": "Winds tear through trees",
-            "heal": "Rain heals the dry",
-            "bind": "Roots bind the stones",
-            "free": "Birds free from nests",
-            "trap": "Fog traps the light",
-            "gather": "Clouds gather to rain",
-            "scatter": "Leaves scatter in gusts",
-            "stack": "Rocks stack by shore",
-            "spread": "Fields spread to sky",
-            "narrow": "Paths narrow through woods",
-            "widen": "Rivers widen to sea",
-            "deepen": "Shadows deepen with night",
-            "shallow": "Streams shallow in sun",
-            "sink": "Stones sink in mud",
-            "float": "Petals float on waves",
-            "drown": "Rain drowns the plains",
-            "survive": "Trees survive the frost",
-            "thrive": "Flowers thrive in spring",
-            "wither": "Grass withers in heat",
-            "bloom": "Fields bloom with life",
-            "rot": "Logs rot in damp",
-            "ripen": "Fruits ripen in sun",
-            "sprout": "Seeds sprout in earth",
-            "growl": "Thunder growls in dark",
-            "whisper": "Leaves whisper in breeze",
-            "shout": "Winds shout through peaks",
-            "murmur": "Brooks murmur soft",
-            "roar": "Oceans roar with might",
-            "hush": "Snow hushes the world",
-            "sing": "Birds sing to dawn",
-            "cry": "Wolves cry to moon",
-            "laugh": "Streams laugh over rocks",
-            "scream": "Gales scream through cliffs",
-            "sigh": "Woods sigh at dusk",
-            "ring": "Bells ring in wind",
-            "echo": "Canyons echo far",
-            "sound": "Waves sound their hymn",
-            "quiet": "Night quiets the land",
-            "noise": "Storms noise the sky",
-            "clash": "Thunder clashes loud",
-            "harmony": "Winds harmony with trees",
-            "discord": "Waves discord with shore",
-            "tune": "Birds tune the morn",
-            "touch": "Rain touches the leaves",
-            "feel": "Breeze feels the skin",
-            "grasp": "Roots grasp the deep",
-            "hold": "Cliffs hold the edge",
-            "push": "Tides push the sand",
-            "pull": "Roots pull from earth",
-            "strike": "Lightning strikes the oak",
-            "brush": "Leaves brush the ground",
-            "reach": "Branches reach for light",
-            "glance": "Sun glances off waves",
-            "stare": "Moon stares at night",
-            "watch": "Stars watch the world",
-            "blind": "Fog blinds the way",
-            "glimmer": "Dew glimmers in morn",
-            "sparkle": "Streams sparkle with sun",
-            "gleam": "Ice gleams in light",
-            "dull": "Rocks dull with age",
-            "shimmer": "Heat shimmers on sand",
-            "smell": "Rain smells of earth",
-            "scent": "Flowers scent the air",
-            "stink": "Swamps stink of rot",
-            "fragrance": "Blossoms fragrance the breeze",
-            "odor": "Mud odors the bank",
-            "taste": "Wind tastes of salt",
-            "savor": "Berries savor the tongue",
-            "bitter": "Frost bitters the air",
-            "sweet": "Honey sweetens the bloom",
-            "sour": "Lemons sour the lips",
-            "warmth": "Sun warms the stones",
-            "cold": "Ice colds the touch",
-            "heat": "Desert heats the day",
-            "chill": "Night chills the bones",
-            "fire": "Flames fire the dark",
-            "ice": "Frost ices the leaves",
-            "steam": "Springs steam in mist",
-            "smoke": "Fires smoke the sky",
-            "dust": "Winds dust the plains",
-            "mud": "Rain muds the path",
-            "stone": "Mountains stone the ridge",
-            "sand": "Dunes sand the waste",
-            "clay": "Rivers clay the banks",
-            "earth": "Fields earth the roots",
-            "water": "Lakes water the land",
-            "air": "Breezes air the heights",
-            "sky": "Stars sky the night",
-            "light": "Dawn lights the world",
-            "dark": "Night darks the woods",
-            "shadow": "Trees shadow the glade",
-            "dawn": "Mist dawns the morn",
-            "dusk": "Colors dusk the sky",
-            "noon": "Sun noons the peak",
-            "midnight": "Moon midnights the silence",
-            "sun": "Rays sun the hills",
-            "moon": "Glow moons the waves",
-            "star": "Points star the dark",
-            "cloud": "Drifts cloud the blue",
-            "storm": "Thunder storms the calm",
-            "zenith": "The peak touches zenith pure"
-        };
-
-        function updateBootTime() {
-            const now = new Date();
-            bootTime.textContent = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${now.toLocaleTimeString('en-US', { hour12: false })}`;
-        }
-
-        let delay = 0;
-        bootLines.forEach((line, index) => {
-            setTimeout(() => {
-                line.style.display = 'block';
-                if (index === 3) updateBootTime();
-            }, delay);
-            delay += 600;
-        });
-
-        setTimeout(() => {
-            bootScreen.style.opacity = '0';
-            setTimeout(() => {
-                bootScreen.style.display = 'none';
-                mainInterface.style.display = 'block';
-                mainInterface.style.opacity = '1';
-                document.getElementById('main-content').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('credit-warning').style.display = 'block';
-                    // Preload the background image
-                    const img = new Image();
-                    img.src = 'background.jpg'; // Ensure this path is correct
-                    img.onload = () => {
-                        terminal.style.opacity = '0'; // Fade out
-                        setTimeout(() => {
-                            terminal.classList.add('loaded'); // Apply loaded class with background
-                            terminal.style.opacity = '1'; // Fade in with new background
-                        }, 500); // Match this with the transition duration
-                    };
-                    img.onerror = () => {
-                        console.error('Failed to load background.jpg. Please check the file path.');
-                    };
-                }, 1000);
-            }, 500);
-        }, delay + 1200);
-
-        // Live time and date update
-        function updateTimeDate() {
-            const now = new Date();
-            document.getElementById('date').textContent = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
-            document.getElementById('time').textContent = now.toLocaleTimeString('en-US', { hour12: false });
-        }
-        setInterval(updateTimeDate, 1000);
-        updateTimeDate();
-
-        // Menu bar functionality
-        const hamburger = document.querySelector('.hamburger');
-        const menuBar = document.querySelector('.menu-bar');
-        const links = document.querySelectorAll('.menu-bar a');
-        const contents = document.querySelectorAll('.content');
-        const inputPrompt = document.querySelector('.input-prompt');
-
-        hamburger.addEventListener('click', () => {
-            menuBar.classList.toggle('active');
-        });
-
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const contentId = link.getAttribute('data-content') + '-content';
-                contents.forEach(content => content.style.display = 'none');
-                document.getElementById(contentId).style.display = 'block';
-                if (contentId !== 'credit-warning') {
-                    document.getElementById('credit-warning').style.display = 'none';
-                }
-                menuBar.classList.remove('active');
-                inputPrompt.value = '';
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !menuBar.contains(e.target)) {
-                menuBar.classList.remove('active');
-            }
-        });
-
-        // Input functionality with keyword responses
-        inputPrompt.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const command = inputPrompt.value.trim().toLowerCase(); // Case-insensitive input
-                if (responses[command]) {
-                    responseElement.textContent = responses[command]; // Display the response
-                } else if (command === 'game.exe') {
-                    window.location.href = 'game/game.html'; // Redirect to game.html
-                } else if (command === 'email') {
-                    alert('Email functionality coming soon!');
-                } else {
-                    responseElement.textContent = `Unknown command: ${command}`; // Feedback for unrecognized commands
-                }
-                inputPrompt.value = ''; // Clear input after command
-            }
-        });
-
-        // Button interactivity
-        document.querySelectorAll('.content button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                alert(`You clicked: ${btn.textContent}`);
-            });
-        });
-    </script>
+    <script src="responses.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

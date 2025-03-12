@@ -6,13 +6,13 @@
 }
 
 body {
-    background-color: #0A0A0A; /* Default background for the entire page */
+    background-color: #0A0A0A;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="%2300FF00"/></svg>') 8 8, auto;
-    transition: opacity 1s ease; /* For potential future fade effects */
+    transition: opacity 1s ease;
 }
 
 /* Terminal container */
@@ -21,7 +21,7 @@ body {
     max-width: 900px;
     height: 80vh;
     max-height: 600px;
-    background-color: #000000; /* Default background before image loads */
+    background-color: #000000;
     border: 2px solid #00FF00;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
     font-family: 'Courier New', Courier, monospace;
@@ -30,18 +30,16 @@ body {
     position: relative;
     overflow: hidden;
     animation: flicker 0.1s infinite alternate;
-    transition: opacity 1s ease; /* Smooth transition for background fade */
+    transition: opacity 1s ease;
 }
 
-/* Apply background image to terminal */
 .terminal.loaded {
-    background-image: url('background.jpg'); /* Ensure this path is correct */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-size: 640px 480px; /* Fixed size as requested */
+    background-image: url('background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 640px 480px;
 }
 
-/* CRT scanline effect */
 .terminal::after {
     content: '';
     position: absolute;
@@ -75,18 +73,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* Error message styling */
-.boot-screen .error {
-    color: #FF0000;
-    font-weight: bold;
-    animation: blink 0.5s step-end infinite;
-}
-
-/* Blinking animation for error */
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
 /* Main interface */
 .main-interface {
     height: 100%;
@@ -96,62 +82,6 @@ body {
     transition: opacity 0.5s ease;
 }
 
-/* Hamburger menu button */
-.hamburger {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #000000;
-    color: #00FF00;
-    border: 1px solid #00FF00;
-    font-size: 1.5em;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.hamburger:hover {
-    background-color: #00FF00;
-    color: #000000;
-}
-
-/* Menu bar */
-.menu-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: transparent;
-    display: none;
-}
-
-.menu-bar.active {
-    display: block;
-}
-
-.menu-bar ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px 60px;
-}
-
-.menu-bar ul li {
-    margin-right: 30px;
-}
-
-.menu-bar ul li a {
-    color: #00FF00;
-    text-decoration: none;
-    padding: 5px;
-}
-
-.menu-bar ul li a:hover {
-    background-color: #00FF00;
-    color: #000000;
-}
-
-/* Screen area */
 .screen {
     padding: 10px;
     flex-grow: 1;
@@ -159,11 +89,10 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(100% - 60px); /* Adjust for footer and wavy line */
+    height: calc(100% - 60px);
     position: relative;
 }
 
-/* Content */
 .content {
     display: flex;
     flex-direction: column;
@@ -176,48 +105,18 @@ body {
 }
 
 .content p {
-    margin: 10px 0; /* Add spacing between response lines */
+    margin: 10px 0;
 }
 
-/* Credit warning styling */
-#credit-warning {
-    position: absolute;
-    top: 50%; /* Center vertically within terminal */
-    left: 50%; /* Center horizontally within terminal */
-    transform: translate(-50%, -50%); /* Exact centering */
-    text-align: center;
-    animation: flash 1s infinite; /* Flash animation */
-    z-index: 10; /* Ensure it stays above other content */
-    width: 80%; /* Constrain width to avoid edge overflow */
-    margin: 0 auto; /* Center horizontally within constrained width */
-}
-
-#credit-warning p {
-    color: #FF0000; /* Red text */
-    font-weight: bold; /* Bold text */
-    font-size: 1.5em; /* Slightly larger text */
-    margin: 10px 0; /* Increased margin for spacing */
-    white-space: nowrap; /* Prevent text wrapping */
-}
-
-/* Flashing animation for credit warning */
-@keyframes flash {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* Horizontal divider */
 .divider {
     border: 0;
     border-top: 1px solid #00FF00;
     margin: 0 20px;
 }
 
-/* Wavy line */
 .wavy-line {
     position: absolute;
-    bottom: 60px; /* Position above footer */
+    bottom: 60px;
     left: 0;
     width: 100%;
     height: 20px;
@@ -233,7 +132,6 @@ body {
     pointer-events: none;
 }
 
-/* Footer (bottom row) */
 .bottom-row {
     display: flex;
     justify-content: space-between;
@@ -243,10 +141,26 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 40px; /* Fixed height for footer */
+    height: 60px;
 }
 
-/* Prompt */
+.guest-button {
+    background-color: #000000;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    padding: 2px 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9em;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+}
+
+.guest-button:hover {
+    background-color: #00FF00;
+    color: #000000;
+}
+
 .prompt {
     font-size: 1.2em;
     display: flex;
@@ -275,8 +189,91 @@ body {
     border-bottom: 1px solid #00FF00;
 }
 
-/* Buttons */
-button {
+.time-date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+}
+
+.time-date-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.time-date {
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.2;
+}
+
+.help-tooltip {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px; /* Space between tooltip and clock */
+    cursor: help;
+}
+
+.help-tooltip span:first-child {
+    font-size: 12pt; /* Size of the question mark */
+}
+
+.help-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #000000;
+    color: #00FF00;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #00FF00;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.help-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.login-prompt {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    border: 2px solid #00FF00;
+    padding: 20px;
+    z-index: 20;
+    text-align: center;
+}
+
+.login-prompt.active {
+    display: block;
+}
+
+.login-prompt input {
+    background-color: #000000;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    padding: 5px;
+    margin: 10px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.login-prompt button {
     background-color: #000000;
     color: #00FF00;
     border: 1px solid #00FF00;
@@ -286,31 +283,11 @@ button {
     transition: background-color 0.2s ease;
 }
 
-button:hover {
+.login-prompt button:hover {
     background-color: #00FF00;
     color: #000000;
 }
 
-/* Links */
-.content a {
-    color: #00FF00;
-    text-decoration: underline;
-}
-
-.content a:hover {
-    color: #00CC00;
-}
-
-/* Time and Date */
-.time-date {
-    font-size: 1.2em;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    line-height: 1.2;
-}
-
-/* Flicker effect */
 @keyframes flicker {
     0% { opacity: 1; }
     50% { opacity: 0.95; }
