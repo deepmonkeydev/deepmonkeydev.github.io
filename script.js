@@ -57,15 +57,24 @@ updateTimeDate();
 
 // Input functionality
 const inputPrompt = document.querySelector('.input-prompt');
+const randomResponses = [
+    "Try again but this time use just one word",
+    "The wisdom of the ancients is beyond your grasp",
+    "You are not prepared",
+    "Comfort and error messages are for the weak",
+    "You are not a worthy adversary",
+    "How hard is it to type a single word?",
+    "Response not found....Its here but you can't see it",
+];
+
 inputPrompt.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         const command = inputPrompt.value.trim().toLowerCase();
         if (responses[command]) {
             responseElement.textContent = responses[command];
-        } else if (command === 'game.exe') {
-            window.location.href = 'game/game.html';
         } else {
-            responseElement.textContent = `Unknown command: ${command}`;
+            const randomIndex = Math.floor(Math.random() * randomResponses.length);
+            responseElement.textContent = randomResponses[randomIndex];
         }
         inputPrompt.value = '';
     }
