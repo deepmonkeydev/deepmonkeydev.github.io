@@ -873,5 +873,5 @@ const responses = {
 "eject": "Volcanoes eject the lava",
 "spew": "Chimneys spew the smoke",
 "vomit": "Seas vomit their plastic",
-"uncleken": "Devolution forever.  Make your own monkey behave."
+"uncleken": "Devolution forever.  Make your own monkey behave.",
 };
