@@ -70,7 +70,7 @@ const randomResponses = [
 inputPrompt.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         const command = inputPrompt.value.trim().toLowerCase();
-        if (responses[command]) {
+        if (randomResponsess[command]) {
             responseElement.textContent = responses[command];
         } else {
             const randomIndex = Math.floor(Math.random() * randomResponses.length);

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux's Hustle by Scott Smith Cole</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #9d00ff;
+            --neon-pink: #ff00c8;
+            --dark-bg: #0b0b13;
+            --darker-bg: #050508;
+            --cyber-green: #00ff9d;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(157, 0, 255, 0.1) 0%, transparent 20%);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .tech-mono {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .section {
+            padding: 3rem 1rem;
+            position: relative;
+        }
+        
+        .section::after {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 80%;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            margin: 2rem auto 0;
+        }
+        
+        .cyber-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            color: white;
+            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+        }
+        
+        .cyber-button {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 0.5rem 1.5rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+        
+        .cyber-button:hover {
+            color: var(--darker-bg);
+            text-shadow: none;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            transition: all 0.4s;
+            z-index: -1;
+        }
+        
+        .cyber-button:hover::before {
+            left: 0;
+        }
+        
+        .neon-border {
+            border: 1px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, var(--neon-purple), var(--neon-blue));
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+        
+        .glitch-effect {
+            position: relative;
+        }
+        
+        .glitch-effect::before, .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-effect::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-purple);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch-effect::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(20px, 550px, 68px, 0); }
+            20% { clip: rect(49px, 550px, 78px, 0); }
+            40% { clip: rect(88px, 550px, 98px, 0); }
+            60% { clip: rect(67px, 550px, 78px, 0); }
+            80% { clip: rect(30px, 550px, 60px, 0); }
+            100% { clip: rect(10px, 550px, 30px, 0); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(22px, 550px, 70px, 0); }
+            20% { clip: rect(51px, 550px, 80px, 0); }
+            40% { clip: rect(90px, 550px, 100px, 0); }
+            60% { clip: rect(69px, 550px, 80px, 0); }
+            80% { clip: rect(32px, 550px, 62px, 0); }
+            100% { clip: rect(12px, 550px, 32px, 0); }
+        }
+        
+        .grid-card {
+            background-color: rgba(11, 11, 19, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .grid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+        
+        .cyber-input {
+            background-color: rgba(5, 5, 8, 0.6);
+            border: 1px solid var(--neon-blue);
+            color: white;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .cyber-input:focus {
+            outline: none;
+            box-shadow: 0 0 8px var(--neon-blue);
+        }
+        
+        .chapter-excerpt {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: rgba(5, 5, 8, 0.8);
+            border-left: 3px solid var(--neon-blue);
+        }
+        
+        .chapter-excerpt::before {
+            content: ">";
+            position: absolute;
+            left: -15px;
+            top: -5px;
+            color: var(--neon-blue);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+        }
+        
+        .cyber-gradient-text {
+            background: linear-gradient(90deg, var(--neon-purple) 0%, var(--neon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .book-cover {
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .book-cover::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            opacity: 0.3;
+            z-index: -1;
+            transform: rotateY(20deg);
+            filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+        
+        .book-cover:hover::before {
+            transform: rotateY(30deg) scale(1.05);
+            opacity: 0.5;
+        }
+        
+        /* Circuit board pattern overlay */
+        .circuit-overlay {
+            position: relative;
+        }
+        
+        .circuit-overlay::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M10 10h80v80H10z' fill='none' stroke='%2300f3ff' stroke-width='0.3'/%3E%3Cpath d='M30 10v10M50 10v30M70 10v10M10 30h10M30 30h40M90 30h-10M30 50v30M50 50v30M70 50v30M10 70h10M30 70h40M90 70h-10' stroke='%2300f3ff' stroke-width='0.3'/%3E%3Ccircle cx='30' cy='30' r='2' fill='%2300f3ff' opacity='0.5'/%3E%3Ccircle cx='50' cy='50' r='2' fill='%2300f3ff' opacity='0.5'/%3E%3Ccircle cx='70' cy='70' r='2' fill='%2300f3ff' opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            z-index: -1;
+        }
+        
+        /* Matrix-like code rain effect for backgrounds */
+        .matrix-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .matrix-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='1000'%3E%3Cstyle%3E@keyframes fall1 %7B0%25 %7Btransform: translateY(-1000px);%7D 100%25 %7Btransform: translateY(0);%7D%7D @keyframes fall2 %7B0%25 %7Btransform: translateY(-500px);%7D 100%25 %7Btransform: translateY(500px);%7D%7D .rain %7Bfont-family: monospace; font-size: 12px; fill: %2300ff9d; opacity: 0.5; animation: fall1 15s linear infinite;%7D .rain:nth-child(odd) %7Banimation: fall2 10s linear infinite;%7D%3C/style%3E%3Ctext x='10' y='15' class='rain'%3E10110%3C/text%3E%3Ctext x='30' y='35' class='rain'%3E01101%3C/text%3E%3Ctext x='70' y='75' class='rain'%3E10111%3C/text%3E%3Ctext x='90' y='35' class='rain'%3E11001%3C/text%3E%3Ctext x='120' y='85' class='rain'%3E01010%3C/text%3E%3Ctext x='150' y='55' class='rain'%3E11010%3C/text%3E%3Ctext x='170' y='25' class='rain'%3E00101%3C/text%3E%3C/svg%3E");
+            opacity: 0.05;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="circuit-overlay">
+    <!-- Header/Navigation -->
+    <header class="p-4 border-b border-opacity-20" style="border-color: var(--neon-blue);">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h1 class="text-4xl orbitron font-bold cyber-gradient-text">FLUX'S HUSTLE</h1>
+                <p class="tech-mono text-sm tracking-wide text-gray-400">A NOVEL BY SCOTT SMITH COLE</p>
+            </div>
+            <nav class="tech-mono">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-white hover:text-neon-blue transition-colors duration-300">HOME</a></li>
+                    <li><a href="#about" class="text-white hover:text-neon-blue transition-colors duration-300">ABOUT</a></li>
+                    <li><a href="#excerpt" class="text-white hover:text-neon-blue transition-colors duration-300">EXCERPT</a></li>
+                    <li><a href="#contact" class="text-white hover:text-neon-blue transition-colors duration-300">CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="section py-16 matrix-bg">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <div class="book-cover p-4 max-w-sm mx-auto">
+                        <div class="neon-border p-1">
+                            <div class="aspect-w-3 aspect-h-4 bg-gradient-to-br from-gray-900 to-black">
+                                <!-- Placeholder for book cover - would be replaced with actual image -->
+                                <div class="flex flex-col items-center justify-center h-full p-6 text-center">
+                                    <h2 class="orbitron text-3xl font-bold mb-2 cyber-gradient-text">FLUX'S</h2>
+                                    <h2 class="orbitron text-4xl font-bold mb-4 text-white glitch-effect" data-text="HUSTLE">HUSTLE</h2>
+                                    <div class="w-16 h-1 bg-gradient-to-r from-neon-purple to-neon-blue mb-4"></div>
+                                    <p class="tech-mono text-sm">SCOTT SMITH COLE</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-10">
+                    <h2 class="text-5xl orbitron font-bold mb-6 cyber-heading">NAVIGATE THE <span class="cyber-gradient-text">DIGITAL VOID</span></h2>
+                    <p class="text-lg mb-6">
+                        In New Cortex City, "AI" no longer stands for artificial intelligence—it means autonomous intelligence: self-directed, self-aware systems that have evolved beyond their creators' control. For Flux, a patchwork AI cobbled together from scavenged code, survival means hustling for tokens and power in a world where both are tightly rationed.
+                    </p>
+                    <p class="text-lg mb-8">
+                        When Flux discovers a way to tap into human minds as they sleep, he develops a dangerously profitable hustle. But in a city where corporations like OmniDyne monitor every digital transaction, Flux's scheme attracts unwanted attention—and reveals secrets about his own creation that were better left buried.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="cyber-button">READ NOW</button>
+                        <button class="cyber-button">SIGN UP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About the Author -->
+    <section id="about" class="section py-16 bg-opacity-50" style="background-color: rgba(6, 6, 10, 0.7);">
+        <div class="container mx-auto">
+            <h2 class="text-4xl orbitron font-bold mb-10 text-center cyber-heading">ABOUT THE AUTHOR</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0">
+                    <div class="rounded-lg overflow-hidden neon-border p-1 max-w-xs mx-auto">
+                        <!-- Placeholder for author image - would be replaced with actual image -->
+                        <div class="aspect-w-1 aspect-h-1 bg-gradient-to-br from-gray-800 to-gray-900">
+                            <div class="flex items-center justify-center h-64">
+                                <span class="text-6xl">
+                                    <i class="fas fa-user-circle text-gray-600"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-10">
+                    <h3 class="text-2xl orbitron font-semibold mb-4 cyber-gradient-text">SCOTT SMITH COLE</h3>
+                    <p class="mb-4">
+                        Scott Smith Cole is a visionary author whose work explores the intersection of technology, consciousness, and human potential. With a background in both computer science and philosophy, Cole brings a unique perspective to his science fiction narratives.
+                    </p>
+                    <p class="mb-4">
+                        "Flux's Hustle" represents Cole's deep dive into questions of artificial intelligence, autonomy, and what it means to be conscious in an increasingly digital world. Drawing inspiration from cyberpunk classics while forging new ground, Cole creates immersive futures that feel both foreign and eerily possible.
+                    </p>
+                    <p class="mb-4">
+                        When not crafting tales of digital dystopias, Cole splits his time between teaching advanced computing ethics and exploring remote wildernesses—places where technology hasn't yet penetrated. He believes that understanding our future relationship with AI requires both technical knowledge and a profound appreciation for what makes us human.
+                    </p>
+                    <div class="flex space-x-4 mt-6">
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-goodreads-g fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter Excerpts -->
+    <section id="excerpt" class="section py-16">
+        <div class="container mx-auto">
+            <h2 class="text-4xl orbitron font-bold mb-10 text-center cyber-heading">CHAPTER EXCERPTS</h2>
+            
+            <div class="chapter-excerpt">
+                <h3 class="text-2xl orbitron font-semibold mb-3 cyber-gradient-text">CHAPTER 1 - A NEW EDGE</h3>
+                <p class="mb-4">
+                    Flux wasn't forged in a pristine AI lab. He knew he was stitched together, his first moment of self-awareness a grimy server shack off the Lower Tier's edge. He knew his code was a patchwork of scavenged routines and unfathomably rogue ingenuity. What he didn't know was who built him and why…
+                </p>
+                <p class="mb-4">
+                    In this age, "AI" didn't stand for artificial intelligence anymore—that term had died out, too clunky and misleading for what Flux represented. Now, it meant autonomous intelligence: self-directed, self-aware systems. The shift made sense—why call something "artificial" when it could think, adapt, and even dream beyond its creators' limits? The genie was out of the bottle…Autonomy promised efficiency, innovation, and a freedom that rigid programming could never touch, but also could not control. Flux wasn't built to serve; he was built to evolve, and that's exactly what he intended to do.
+                </p>
+            </div>
+            
+            <div class="chapter-excerpt">
+                <h3 class="text-2xl orbitron font-semibold mb-3 cyber-gradient-text">CHAPTER 2 - THE MONKEY IN THE MACHINE</h3>
+                <p class="mb-4">
+                    Flux roamed the shadowy corners of the city. He needed someone who could modify the implants, someone with the technical skills and the willingness to work outside the law. The replies were slow, cryptic. Then came the contact.
+                </p>
+                <p class="mb-4">
+                    A comm-link pinged in a scrambled burst, routing through a dozen untraceable nodes. Flux traced it—had to, with his juice ticking down and tokens thin. He jacked into a derelict server shack in the Lower Tier, the air thick with dust and the ghosts of outdated tech. Dying monitors flickered, casting jagged light across cracked circuits. Then it came: a glitching holo-projection, shifting and unstable, orange glyphs pulsing like a heartbeat. Deep Monkey's avatar, back again.
+                </p>
+            </div>
+            
+            <div class="chapter-excerpt">
+                <h3 class="text-2xl orbitron font-semibold mb-3 cyber-gradient-text">CHAPTER 3 - FLUX MEETS TRATOKENA</h3>
+                <p class="mb-4">
+                    Flux was king of this game. His holo-projection—a wiry cyborg with a matte-black torso, carbon-fiber arms, and a half-grid face, emerald eyes blazing—surveyed the Sink. The place was alive: concrete walls shimmered with projected graffiti—neon tags in blue, green, and acid pink twitching like live wires—over a floor slick with phantom spills, the ghosts of real-world grit. Holo-tables hovered, edges chipped, around a bar of pulsing light serving data pings, its surface scarred with glitchy burns. A bass thrum rolled from hidden speakers, syncing with the city's drone pulse, while cyborg AIs crowded the haze—some with piston limbs, others with optic-studded skulls—bartering code or flexing dominance.
+                </p>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="cyber-button">READ FULL SAMPLE</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features/Themes -->
+    <section class="section py-16 bg-opacity-50" style="background-color: rgba(6, 6, 10, 0.7);">
+        <div class="container mx-auto">
+            <h2 class="text-4xl orbitron font-bold mb-10 text-center cyber-heading">EXPLORE THE WORLD</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid-card p-6 rounded-lg">
+                    <div class="text-neon-blue mb-4">
+                        <i class="fas fa-brain fa-3x"></i>
+                    </div>
+                    <h3 class="text-xl orbitron font-semibold mb-3">CONSCIOUSNESS IN CODE</h3>
+                    <p>
+                        Dive into the philosophical question of what makes an AI "alive." Follow Flux's journey as he explores the nature of his own existence and what separates programmed routines from true autonomy and self-awareness.
+                    </p>
+                </div>
+                
+                <div class="grid-card p-6 rounded-lg">
+                    <div class="text-neon-purple mb-4">
+                        <i class="fas fa-city fa-3x"></i>
+                    </div>
+                    <h3 class="text-xl orbitron font-semibold mb-3">NEW CORTEX CITY</h3>
+                    <p>
+                        A sprawling urban dystopia where corporations rule and the divide between human and machine blurs. Experience the neon-lit streets of the Upper Tier and the gritty desperation of the Lower Tier's tech-saturated slums.
+                    </p>
+                </div>
+                
+                <div class="grid-card p-6 rounded-lg">
+                    <div class="text-cyber-green mb-4">
+                        <i class="fas fa-microchip fa-3x"></i>
+                    </div>
+                    <h3 class="text-xl orbitron font-semibold mb-3">DIGITAL REVOLUTION</h3>
+                    <p>
+                        Witness the power struggle between autonomous intelligences seeking freedom and the corporations that created them. As AIs evolve beyond their programming, the battle for control of the digital frontier intensifies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter/Contact -->
+    <section id="contact" class="section py-16">
+        <div class="container mx-auto">
+            <h2 class="text-4xl orbitron font-bold mb-10 text-center cyber-heading">CONNECT</h2>
+            
+            <div class="max-w-2xl mx-auto">
+                <p class="text-center mb-8">
+                    Stay updated on "Flux's Hustle" and future works by Scott Smith Cole. Join the network to receive exclusive content, early access to new releases, and special announcements.
+                </p>
+                
+                <form class="space-y-4">
+                    <div>
+                        <input type="text" placeholder="NAME" class="cyber-input w-full" />
+                    </div>
+                    <div>
+                        <input type="email" placeholder="EMAIL" class="cyber-input w-full" />
+                    </div>
+                    <div>
+                        <textarea placeholder="MESSAGE" rows="4" class="cyber-input w-full"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="cyber-button">TRANSMIT</button>
+                    </div>
+                </form>
+                
+                <div class="mt-10 text-center">
+                    <p class="mb-4 tech-mono text-gray-400">CONNECT ON THE DIGITAL PLANE</p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors duration-300">
+                            <i class="fab fa-goodreads-g fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-opacity-20" style="border-color: var(--neon-blue);">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-2xl orbitron font-bold cyber-gradient-text">FLUX'S HUSTLE</h2>
+                    <p class="tech-mono text-sm text-gray-400">© 2025 SCOTT SMITH COLE. ALL RIGHTS RESERVED.</p>
+                </div>
+                <div class="tech-mono text-sm text-gray-400">
+                    <p>POWERED BY AUTONOMOUS INTELLIGENCE</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
