@@ -7,7 +7,8 @@ const bootLines = [
     document.getElementById('boot-line-3'),
     document.getElementById('boot-line-4'),
     document.getElementById('boot-line-5'),
-    document.getElementById('boot-line-6')
+    document.getElementById('boot-line-6'),
+    document.getElementById('boot-line-7')
 ];
 const bootTime = document.getElementById('boot-time');
 const terminal = document.querySelector('.terminal');
